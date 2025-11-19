@@ -7,6 +7,7 @@ use App\Http\Controllers\PiezaDeConocimientoController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CanalController;
+use App\Http\Controllers\EtiquetaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,3 +30,4 @@ Route::apiResource('piezas', PiezaDeConocimientoController::class);
 Route::apiResource('roles', RolController::class);
 Route::apiResource('users', UserController::class);
 Route::apiResource('canales', CanalController::class);
+Route::apiResource('etiquetas', EtiquetaController::class);
