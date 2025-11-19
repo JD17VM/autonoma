@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmpresaController;
+use App\Http\Controllers\PiezaDeConocimientoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,3 +22,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // Rutas Públicas (por ahora)
 Route::apiResource('empresas', EmpresaController::class);
+Route::apiResource('piezas', PiezaDeConocimientoController::class);
