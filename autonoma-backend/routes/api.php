@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\PiezaDeConocimientoController;
 use App\Http\Controllers\RolController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,3 +26,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::apiResource('empresas', EmpresaController::class);
 Route::apiResource('piezas', PiezaDeConocimientoController::class);
 Route::apiResource('roles', RolController::class);
+Route::apiResource('users', UserController::class);
