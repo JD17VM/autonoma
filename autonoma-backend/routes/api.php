@@ -6,6 +6,7 @@ use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\PiezaDeConocimientoController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CanalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,3 +28,4 @@ Route::apiResource('empresas', EmpresaController::class);
 Route::apiResource('piezas', PiezaDeConocimientoController::class);
 Route::apiResource('roles', RolController::class);
 Route::apiResource('users', UserController::class);
+Route::apiResource('canales', CanalController::class);
