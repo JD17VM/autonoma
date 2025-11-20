@@ -2,6 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\AuthController;
+
 use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\PiezaDeConocimientoController;
 use App\Http\Controllers\RolController;
@@ -12,24 +15,28 @@ use App\Http\Controllers\PlantillaDeRespuestaController;
 
 /*
 |--------------------------------------------------------------------------
-| API Routes
+| RUTAS PÚBLICAS (No requieren Token)
 |--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group. Make something great!
-|
 */
+Route::post('/auth/login', [AuthController::class, 'login']);
+Route::post('/auth/register', [AuthController::class, 'register']);
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+/*
+|--------------------------------------------------------------------------
+| RUTAS PROTEGIDAS (Requieren 'Bearer Token')
+|--------------------------------------------------------------------------
+*/
+Route::middleware('auth:sanctum')->group(function () {
+    // Auth
+    Route::post('/auth/logout', [AuthController::class, 'logout']);
+    Route::get('/auth/profile', [AuthController::class, 'profile']);
+
+    // Módulos de Negocio
+    Route::apiResource('empresas', EmpresaController::class);
+    Route::apiResource('piezas', PiezaDeConocimientoController::class);
+    Route::apiResource('roles', RolController::class);
+    Route::apiResource('users', UserController::class);
+    Route::apiResource('canales', CanalController::class);
+    Route::apiResource('etiquetas', EtiquetaController::class);
+    Route::apiResource('plantillas', PlantillaDeRespuestaController::class);
 });
-
-// Rutas Públicas (por ahora)
-Route::apiResource('empresas', EmpresaController::class);
-Route::apiResource('piezas', PiezaDeConocimientoController::class);
-Route::apiResource('roles', RolController::class);
-Route::apiResource('users', UserController::class);
-Route::apiResource('canales', CanalController::class);
-Route::apiResource('etiquetas', EtiquetaController::class);
-Route::apiResource('plantillas', PlantillaDeRespuestaController::class);
