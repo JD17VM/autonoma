@@ -1,4 +1,17 @@
-/* clase "jaula" */
+/* 1. CONFIGURACIÓN */
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/utilities";
+
+/* 2. LA JAULA */
 .bootstrap-scope {
-  @import "../../../node_modules/bootstrap/scss/bootstrap";
+  @import "bootstrap/scss/bootstrap";
 }
+
+/* 3. MODALES (Sin backdrop explícito) */
+@import "bootstrap/scss/root";
+@import "bootstrap/scss/transitions";
+@import "bootstrap/scss/modal";
+@import "bootstrap/scss/close";

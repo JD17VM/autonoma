@@ -1,56 +1,68 @@
 import { useState } from 'react'
 
+// 1. Tu limpieza (Reset)
+import './assets/styles/normalize.css'
+
+// 2. Tu configuración SASS híbrida
+import './assets/styles/bootstrap-isolation.scss';
+
+// 3. JS para que funcione el clic del modal
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+
 function App() {
   return (
     <div style={{ padding: '50px' }}>
       
-      {/* =======================================================
-          PRUEBA 1: ZONA LIBRE (AFUERA)
-          Aquí Bootstrap NO debe existir.
-         ======================================================= */}
-      <section style={{ marginBottom: '50px', border: '2px solid red', padding: '20px' }}>
-        <h2 style={{ color: 'red' }}>ZONA 1: Afuera de la jaula (Tus estilos)</h2>
-        
-        <p>1. Mira este texto. Debería tener la fuente por defecto (Times New Roman o la que tú definas), NO la de Bootstrap (Arial/Helvetica).</p>
-        
-        {/* Este botón tiene clases de Bootstrap, pero NO debería verse azul si la jaula funciona */}
-        <p>2. El siguiente botón intenta usar Bootstrap, pero debería verse feo/normal:</p>
+      {/* --- ZONA 1: TU DISEÑO (Fuera de la jaula) --- */}
+      <section style={{ marginBottom: '40px' }}>
+        <h1 style={{ color: 'red' }}>Prueba 1: Diseño Propio</h1>
+        <p>Este texto debe tener tu fuente normal (probablemente Times New Roman o Serif).</p>
         <button className="btn btn-primary">
-          Soy un impostor (No debo ser azul)
+          Soy un botón sin estilos (No debo ser azul)
         </button>
       </section>
 
-
-      {/* =======================================================
-          PRUEBA 2: ZONA JAULA (ADENTRO)
-          Aquí Bootstrap SÍ debe funcionar.
-         ======================================================= */}
-      <div className="bootstrap-scope"> {/* <--- AQUÍ ABRES LA JAULA */}
+      {/* --- ZONA 2: LA JAULA (Bootstrap activo) --- */}
+      <div className="bootstrap-scope">
         
-        <section style={{ border: '2px solid green', padding: '20px' }}>
-          <h2 style={{ color: 'green' }}>ZONA 2: Adentro de la jaula (Bootstrap)</h2>
-          
-          <p>1. Este texto debería verse con la fuente bonita de Bootstrap (Sans-serif).</p>
-          
-          <p>2. Este botón SÍ debe ser azul y bonito:</p>
-          <button className="btn btn-primary">
-            Soy Bootstrap Real (Debo ser azul)
+        <section style={{ border: '2px dashed blue', padding: '20px' }}>
+          <h2 className="text-primary">Prueba 2: Zona Bootstrap</h2>
+          <p>Este texto debe ser Sans-Serif y bonito.</p>
+
+          {/* Botón que activa el Modal */}
+          <button 
+            type="button" 
+            className="btn btn-primary" 
+            data-bs-toggle="modal" 
+            data-bs-target="#exampleModal"
+          >
+            ¡Abrir Modal de Prueba!
           </button>
 
-          {/* Prueba de tu tabla */}
-          <br /><br />
-          <table className="table table-dark table-striped mt-3">
-            <thead>
-              <tr><th>#</th><th>Prueba Tabla</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>1</td><td>Funciona perfecto</td></tr>
-            </tbody>
-          </table>
+          {/* --- EL MODAL (El código está aquí, pero al abrirse viaja al Body) --- */}
+          <div className="modal fade" id="exampleModal" tabIndex="-1" aria-hidden="true">
+            <div className="modal-dialog">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h1 className="modal-title fs-5">Prueba Exitosa</h1>
+                  <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div className="modal-body text-dark">
+                  Si ves este cuadro blanco con sombras y bordes redondeados... 
+                  <strong>¡La configuración funciona!</strong>
+                  <br/><br/>
+                  El modal se ve bien aunque esté fuera de la jaula .bootstrap-scope.
+                </div>
+                <div className="modal-footer">
+                  <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                  <button type="button" className="btn btn-primary">Guardar</button>
+                </div>
+              </div>
+            </div>
+          </div>
 
         </section>
-
-      </div> {/* <--- AQUÍ CIERRAS LA JAULA */}
+      </div>
 
     </div>
   )
