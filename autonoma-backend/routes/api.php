@@ -9,6 +9,7 @@ use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\PiezaDeConocimientoController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\TipoCanalController; 
 use App\Http\Controllers\CanalController;
 use App\Http\Controllers\EtiquetaController;
 use App\Http\Controllers\PlantillaDeRespuestaController;
@@ -36,6 +37,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('piezas', PiezaDeConocimientoController::class);
     Route::apiResource('roles', RolController::class);
     Route::apiResource('users', UserController::class);
+    Route::apiResource('tipos-canal', TipoCanalController::class); 
     Route::apiResource('canales', CanalController::class);
     Route::apiResource('etiquetas', EtiquetaController::class);
     Route::apiResource('plantillas', PlantillaDeRespuestaController::class);

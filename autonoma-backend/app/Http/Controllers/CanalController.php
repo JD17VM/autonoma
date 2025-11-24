@@ -17,9 +17,9 @@ class CanalController extends Controller
 
     public function index(Request $request)
     {
-        $query = Canal::with('empresa');
+        $query = Canal::with(['empresa', 'tipoCanal']);
 
-        // Filtro útil: Obtener solo los canales de una empresa específica
+        // Filtro: Obtener solo los canales de una empresa específica
         if ($request->has('id_empresa')) {
             $query->where('id_empresa', $request->id_empresa);
         }
@@ -31,12 +31,13 @@ class CanalController extends Controller
     public function store(StoreCanalRequest $request)
     {
         $canal = Canal::create($request->validated());
+        $canal->load(['empresa', 'tipoCanal']);
         return $this->success($canal, 'Canal creado exitosamente', 201);
     }
 
     public function show($id)
     {
-        $canal = Canal::with('empresa')->find($id);
+        $canal = Canal::with(['empresa', 'tipoCanal'])->find($id);
 
         if (!$canal) {
             return $this->error('Canal no encontrado', 404);
@@ -54,6 +55,7 @@ class CanalController extends Controller
         }
 
         $canal->update($request->validated());
+        $canal->load(['empresa', 'tipoCanal']); 
         return $this->success($canal, 'Canal actualizado correctamente');
     }
 

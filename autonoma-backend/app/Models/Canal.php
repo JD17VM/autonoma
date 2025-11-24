@@ -14,9 +14,10 @@ class Canal extends Model
 
     protected $fillable = [
         'id_empresa',
+        'id_tipo_canal', // Nuevo campo FK
         'titulo',
-        'tipo',
-        'logo_img',
+        // 'tipo',      // Eliminado: ahora se gestiona vía id_tipo_canal
+        // 'logo_img',  // Eliminado: ahora pertenece al TipoCanal
         'activo'
     ];
 
@@ -24,10 +25,20 @@ class Canal extends Model
         'activo' => 'boolean',
     ];
 
-    // Relaciones
+    // --- Relaciones ---
+
     public function empresa()
     {
         return $this->belongsTo(Empresa::class, 'id_empresa');
+    }
+
+    /**
+     * Relación con el Tipo de Canal (WhatsApp, Messenger, etc.)
+     * Permite acceder a: $canal->tipoCanal->nombre o $canal->tipoCanal->logo_url
+     */
+    public function tipoCanal()
+    {
+        return $this->belongsTo(TipoCanal::class, 'id_tipo_canal');
     }
 
     public function piezas()

@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Canal;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class UpdateCanalRequest extends FormRequest
 {
@@ -16,9 +15,8 @@ class UpdateCanalRequest extends FormRequest
     {
         return [
             'id_empresa' => 'sometimes|exists:empresas,id',
+            'id_tipo_canal' => 'sometimes|exists:tipos_canal,id', 
             'titulo' => 'sometimes|string|max:100',
-            'tipo' => ['sometimes', 'string', Rule::in(['whatsapp', 'facebook', 'instagram', 'web'])],
-            'logo_img' => 'nullable|string|max:255',
             'activo' => 'boolean',
         ];
     }
