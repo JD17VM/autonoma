@@ -7,8 +7,8 @@ const Inicio = () => {
 
     // Al cargar el componente, buscamos si hay datos guardados
     useEffect(() => {
-        const storedUser = localStorage.getItem('user_data');
-        const token = localStorage.getItem('auth_token');
+        const storedUser = localStorage.getItem('user_data') || sessionStorage.getItem('user_data');
+        const token = localStorage.getItem('auth_token') || sessionStorage.getItem('auth_token');
 
         if (storedUser && token) {
             setUser(JSON.parse(storedUser));
@@ -19,6 +19,8 @@ const Inicio = () => {
         // Borramos los datos del navegador
         localStorage.removeItem('auth_token');
         localStorage.removeItem('user_data');
+        sessionStorage.removeItem('auth_token');
+        sessionStorage.removeItem('user_data');
         setUser(null);
         navigate('/login'); // Te manda de vuelta al login
     };

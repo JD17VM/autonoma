@@ -60,11 +60,27 @@ const Login = () => {
             const user = data.data?.user || data.user;
 
             if (token) {
-                localStorage.setItem('auth_token', token);
-                if (user) {
-                    localStorage.setItem('user_data', JSON.stringify(user));
+                // ⭐ MODIFICACIÓN CLAVE: Seleccionar el storage según 'remember'
+                const storage = formData.remember ? localStorage : sessionStorage;
+
+                // 1. Limpiar el otro storage por si acaso (ej: si antes marcó recordar y ahora no)
+                if (formData.remember) {
+                    sessionStorage.removeItem('auth_token');
+                    sessionStorage.removeItem('user_data');
+                } else {
+                    localStorage.removeItem('auth_token');
+                    localStorage.removeItem('user_data');
                 }
-                navigate('/'); 
+                
+                // 2. Guardar en el storage seleccionado
+                storage.setItem('auth_token', token);
+
+                if (user) {
+                    storage.setItem('user_data', JSON.stringify(user));
+                }
+
+                // Redirigir al inicio
+                navigate('/');
             } else {
                 throw new Error("No se recibió el token de acceso.");
             }
