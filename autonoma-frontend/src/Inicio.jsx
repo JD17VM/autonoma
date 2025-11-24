@@ -4,14 +4,23 @@ import { Link, useNavigate } from 'react-router-dom';
 const Inicio = () => {
     const navigate = useNavigate();
     const [user, setUser] = useState(null);
+    const [storageType, setStorageType] = useState(''); 
 
     // Al cargar el componente, buscamos si hay datos guardados
     useEffect(() => {
-        const storedUser = localStorage.getItem('user_data') || sessionStorage.getItem('user_data');
-        const token = localStorage.getItem('auth_token') || sessionStorage.getItem('auth_token');
+        let storedUser = localStorage.getItem('user_data');
+        let token = localStorage.getItem('auth_token');
+        let type = 'LocalStorage';
+
+        if (!storedUser || !token) {
+            storedUser = sessionStorage.getItem('user_data');
+            token = sessionStorage.getItem('auth_token');
+            type = 'SessionStorage';
+        }
 
         if (storedUser && token) {
             setUser(JSON.parse(storedUser));
+            setStorageType(type); // Guardamos "LocalStorage" o "SessionStorage"
         }
     }, []);
 
@@ -22,6 +31,7 @@ const Inicio = () => {
         sessionStorage.removeItem('auth_token');
         sessionStorage.removeItem('user_data');
         setUser(null);
+        setStorageType('');
         navigate('/login'); // Te manda de vuelta al login
     };
 
@@ -47,7 +57,7 @@ const Inicio = () => {
                             <hr />
                             
                             {/* Datos técnicos para que verifiques */}
-                            <h6>Tus Datos (Desde LocalStorage):</h6>
+                            <h6>Tus Datos (Desde {storageType}):</h6>
                             <ul className="list-group list-group-flush mb-3">
                                 <li className="list-group-item"><strong>Email:</strong> {user.email}</li>
                                 <li className="list-group-item"><strong>Rol ID:</strong> {user.id_rol}</li>
