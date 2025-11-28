@@ -7,8 +7,8 @@ const dataPaginas = {
             enlace: "/"
         },
         { 
-            nombre: "Información", 
-            enlace: "/informacion"
+            nombre: "Piezas de Conocimiento", 
+            enlace: "/piezas-conocimiento"
         },
         { 
             nombre: "Plantillas", 
